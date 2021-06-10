@@ -1,49 +1,33 @@
 package com.tec.cartoonapp.fragments
 
 import android.Manifest
-import android.annotation.SuppressLint
 import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.os.Looper
 import android.provider.Settings
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.camera.core.CameraSelector
-import androidx.camera.core.ImageCapture
-import androidx.camera.core.Preview
-import androidx.camera.lifecycle.ProcessCameraProvider
-import androidx.core.content.ContextCompat
+import androidx.core.os.bundleOf
+import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
-import com.karumi.dexter.listener.PermissionDeniedResponse
-import com.karumi.dexter.listener.PermissionGrantedResponse
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
-import com.karumi.dexter.listener.single.PermissionListener
 import com.tec.cartoonapp.R
-import java.io.File
-import java.util.concurrent.ExecutorService
-typealias LumaListener = (luma: Double) -> Unit
+
 
 class HomeFragment : Fragment(), View.OnClickListener {
 
     private var navController: NavController? = null
-    private var imageCapture: ImageCapture? = null
     private var isPermissionsChecked: Boolean = false
-
-    private lateinit var outputDirectory: File
-    private lateinit var cameraExecutor: ExecutorService
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -129,7 +113,11 @@ class HomeFragment : Fragment(), View.OnClickListener {
 
     private fun goToCameraFragment() {
         if (isPermissionsChecked){
-            navController!!.navigate(R.id.action_homeFragment_to_cameraFragment)
+            val bundle = bundleOf("permissions" to isPermissionsChecked)
+            navController!!.navigate(
+                R.id.action_homeFragment_to_cameraFragment,
+                bundle
+            )
         }
     }
 

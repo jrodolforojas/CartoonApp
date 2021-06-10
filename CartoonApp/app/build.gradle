@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'kotlin-parcelize'
 }
 
 android {
@@ -31,9 +32,9 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
-
-//    sourceCompatibility JavaVersion.VERSION_1_8
-//    targetCompatibility JavaVersion.VERSION_1_8
+    buildFeatures {
+        mlModelBinding true
+    }
 
 }
 
@@ -54,6 +55,9 @@ dependencies {
 
     // Karumi Dexter
     implementation 'com.karumi:dexter:6.0.1'
+    implementation 'org.tensorflow:tensorflow-lite-support:0.1.0-rc1'
+    implementation 'org.tensorflow:tensorflow-lite-metadata:0.1.0-rc1'
+    implementation 'org.tensorflow:tensorflow-lite-gpu:2.2.0'
 
     // Camera X
     def camerax_version = "1.0.0"
