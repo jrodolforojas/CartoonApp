@@ -22,18 +22,29 @@ import org.tensorflow.lite.support.image.TensorImage
 import org.tensorflow.lite.support.model.Model
 
 
+/**
+ * [CartoonFragment] runs tensorflowLite model
+ * and shows the cartoonized Image
+ */
 class CartoonFragment : Fragment() {
 
+    // ImageModel from arguments
     private lateinit var imageModel: ImageModel
+    // Progress dialog objects
     private var mProgressDialog: Dialog? = null
 
+    // Setup coroutine
     private val parentJob = Job()
     private val coroutineScope = CoroutineScope(
         Dispatchers.Main + parentJob
     )
 
-    private var modelType: Int = 0
+    private var modelType: Int = 0 // Tensorflow model type
 
+    /**
+     * It's an async function that using tensorflow lite
+     * convert an cartoonized image from an selfie
+     */
     private fun getOutputAsync(bitmap: Bitmap): Deferred<Pair<Bitmap, Long>> =
         // use async() to create a coroutine in an IO optimized Dispatcher for model inference
         coroutineScope.async(Dispatchers.IO) {
@@ -72,6 +83,7 @@ class CartoonFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
+        // Get the imageUri from Camera Fragment
         imageModel = arguments?.getParcelable("image")!!
         // Inflate the layout for this fragment
         showCustomProgressDialog()
@@ -80,7 +92,9 @@ class CartoonFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        // Convert the selfie to bitmap
         val photoBitmap = convertToBitmap(imageModel)
+        // Launch the async function
         coroutineScope.launch(Dispatchers.Main) {
             val (outputBitmap, inferenceTime) = getOutputAsync(photoBitmap).await()
             Log.i("CartoonFragment", "Time: $inferenceTime")
@@ -94,6 +108,9 @@ class CartoonFragment : Fragment() {
     }
 
 
+    /**
+     * This function converts an image from URI to Bitmap format
+     */
     private fun convertToBitmap(imageModel: ImageModel): Bitmap{
         val bitmap: Bitmap = MediaStore.Images.Media.getBitmap(
             requireContext().contentResolver, imageModel.uri)
@@ -153,6 +170,9 @@ class CartoonFragment : Fragment() {
         return cartoonizedImage
     }
 
+    /**
+     * Update Image Views with Source Image and Cartoonized Image
+     */
     private fun updateUI(source: Bitmap, cartoon: Bitmap) {
         hideProgressDialog()
         val ivPhoto = requireView().findViewById<ImageView>(R.id.iv_photo)
