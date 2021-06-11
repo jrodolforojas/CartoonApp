@@ -32,5 +32,8 @@
         android:name="com.tec.cartoonapp.fragments.CartoonFragment"
         android:label="fragment_cartoon"
         tools:layout="@layout/fragment_cartoon" >
+        <argument
+            android:name="imageModel"
+            app:argType="com.tec.cartoonapp.models.ImageModel" />
     </fragment>
 </navigation>

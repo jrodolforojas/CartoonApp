@@ -55,10 +55,14 @@ dependencies {
 
     // Karumi Dexter
     implementation 'com.karumi:dexter:6.0.1'
-    implementation 'org.tensorflow:tensorflow-lite-support:0.1.0-rc1'
-    implementation 'org.tensorflow:tensorflow-lite-metadata:0.1.0-rc1'
-    implementation 'org.tensorflow:tensorflow-lite-gpu:2.2.0'
 
+
+    // Tensorflow
+    def tfl_version = "0.0.0-nightly"
+    implementation 'org.tensorflow:tensorflow-lite-metadata:0.1.0-rc1'
+    implementation 'org.tensorflow:tensorflow-lite-support:0.0.0-nightly'
+    implementation("org.tensorflow:tensorflow-lite:${tfl_version}") { changing = true }
+    implementation("org.tensorflow:tensorflow-lite-gpu:${tfl_version}") { changing = true }
     // Camera X
     def camerax_version = "1.0.0"
     // CameraX core library using camera2 implementation
@@ -71,4 +75,8 @@ dependencies {
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+
+    // Kotlin Coroutine
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.7'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.7'
 }

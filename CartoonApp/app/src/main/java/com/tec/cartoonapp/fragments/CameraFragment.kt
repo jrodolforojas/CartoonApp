@@ -115,10 +115,9 @@ class CameraFragment : Fragment(), View.OnClickListener {
                     Toast.makeText(safeContext, msg, Toast.LENGTH_SHORT).show()
                     Log.d("CameraFragment", "Route image: $msg")
 
-                    val imageModel = ImageModel(savedUri)
-
-//                    val bundle = bundleOf("image" to imageModel)
-                    view!!.findNavController().navigate(R.id.cartoonFragment)
+                    val imageModel = ImageModel(uri = savedUri)
+                    val bundle = bundleOf("image" to imageModel)
+                    view!!.findNavController().navigate(R.id.cartoonFragment, bundle)
                 }
 
                 override fun onError(exception: ImageCaptureException) {
