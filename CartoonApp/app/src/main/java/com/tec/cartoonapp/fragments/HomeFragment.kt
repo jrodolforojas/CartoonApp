@@ -42,8 +42,6 @@ class HomeFragment : Fragment(), View.OnClickListener {
         Dexter.withActivity(this.activity)
             .withPermissions(
                     Manifest.permission.CAMERA,
-                    Manifest.permission.READ_EXTERNAL_STORAGE,
-                    Manifest.permission.WRITE_EXTERNAL_STORAGE
             )
             .withListener(object: MultiplePermissionsListener {
                 override fun onPermissionsChecked(report: MultiplePermissionsReport?) {
@@ -78,18 +76,12 @@ class HomeFragment : Fragment(), View.OnClickListener {
         super.onViewCreated(view, savedInstanceState)
         navController = Navigation.findNavController(view)
         view.findViewById<Button>(R.id.btn_take_photo).setOnClickListener(this)
-        view.findViewById<Button>(R.id.btn_choose_gallery).setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {
         when (v!!.id) {
             R.id.btn_take_photo -> {
                 goToCameraFragment()
-            }
-            R.id.btn_choose_gallery -> {
-                if (isPermissionsChecked) {
-                    pickImageFromGallery()
-                }
             }
         }
     }
@@ -132,26 +124,6 @@ class HomeFragment : Fragment(), View.OnClickListener {
                 R.id.action_homeFragment_to_cameraFragment,
                 bundle
             )
-        }
-    }
-
-    private fun pickImageFromGallery() {
-        val intent = Intent(Intent.ACTION_PICK)
-        intent.type = "image/*"
-        startActivityForResult(intent, IMAGE_PICK_CODE)
-    }
-
-    companion object {
-        private const val IMAGE_PICK_CODE = 1000;
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        if (requestCode == IMAGE_PICK_CODE && resultCode == Activity.RESULT_OK) {
-            val bitmap: Bitmap = MediaStore.Images.Media.
-                getBitmap(context?.contentResolver, data?.data)
-            Log.i("HomeFragment", "Bitmap gallery $bitmap")
         }
     }
 
