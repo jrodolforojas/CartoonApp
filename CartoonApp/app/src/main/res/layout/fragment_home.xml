@@ -8,18 +8,31 @@
     android:gravity="center"
     tools:context=".fragments.HomeFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/hello_blank_fragment" />
+        android:src="@drawable/cartoon_logo"
+        android:layout_margin="20dp"/>
 
     <Button
-        android:id="@+id/btn_fragment_home"
-        android:layout_width="wrap_content"
+        android:id="@+id/btn_take_photo"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="Take Photo"/>
+        android:layout_margin="10dp"
+        android:padding="10dp"
+        android:text="@string/take_photo"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/btn_choose_gallery"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:padding="10dp"
+        android:text="@string/choose_from_gallery"
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
 </LinearLayout>
 

@@ -2,4 +2,8 @@
     <string name="app_name">CartoonApp</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="choose_from_gallery">Photo Library</string>
+    <string name="take_photo">Take Photo</string>
+    <string name="cartoonized_image">Cartoonized Image</string>
+    <string name="source_image">Source Image</string>
 </resources>
